@@ -1,5 +1,6 @@
 import { createBook } from "../controllers/BookController";
 import Book from "../models/Book"
+import { ErrorEnum } from "../Enums/errorEnum";
 
 beforeEach(() => {
 
@@ -38,7 +39,7 @@ describe("create book", () => {
 
         const response = await createBook(newBook);
 
-        expect(response.body).toEqual({error: errorEnum.MISSING_FIELDS});
+        expect(response.body).toEqual({error: ErrorEnum.MISSING_FIELDS});
         expect(response.status).toBe(400);
     });
 
@@ -54,7 +55,7 @@ describe("create book", () => {
 
         const response = await createBook(newBook);
 
-        expect(response.body).toEqual({error: errorEnum.ISBN_INVALID});
+        expect(response.body).toEqual({error: ErrorEnum.ISBN_INVALID});
         expect(response.status).toBe(400)
     });
 
@@ -70,7 +71,7 @@ describe("create book", () => {
 
         const response = await createBook(newBook);
 
-        expect(response.body).toEqual({error: errorEnum.ISBN_INVALID_LENGTH});
+        expect(response.body).toEqual({error: ErrorEnum.ISBN_INVALID_LENGTH});
         expect(response.status).toBe(400)
     });
 
@@ -87,7 +88,7 @@ describe("create book", () => {
 
         const response = await createBook(newBook);
 
-        expect(response.body).toEqual({error: errorEnum.AUTHOR_NOT_FOUND});
+        expect(response.body).toEqual({error: ErrorEnum.AUTHOR_NOT_FOUND});
         expect(response.status).toBe(404)
     });
 
@@ -103,7 +104,7 @@ describe("create book", () => {
 
         const response = await createBook(newBook);
 
-        expect(response.body).toEqual({error: errorEnum.EDITOR_NOT_FOUND});
+        expect(response.body).toEqual({error: ErrorEnum.EDITOR_NOT_FOUND});
         expect(response.status).toBe(404)
     });
 
@@ -118,7 +119,7 @@ describe("create book", () => {
 
         const response = await createBook(newBook);
 
-        expect(response.body).toEqual({error: errorEnum.FORMAT_NOT_FOUND});
+        expect(response.body).toEqual({error: ErrorEnum.FORMAT_NOT_FOUND});
         expect(response.status).toBe(404)
     });
 })
