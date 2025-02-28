@@ -1,15 +1,17 @@
 import request from 'supertest';
 import app from "../app";
 import { ErrorEnum } from '../Enums/ErrorEnum';
+import { MessageEnum } from '../Enums/MessageEnum';
 
 beforeEach(() => {
     jest.resetAllMocks();
 });
 
 jest.mock("../repositories/MemberRepository");
-jest.mock("../services/MailService");
-import MemberRepository from "../repositories/MemberRepository";
-import MailService from "../services/MailService";
+jest.mock("../services/MailerService");
+import MemberRepository from '../repositories/MemberRepository';
+import MailerService from "../services/MailerService";
+import Reservation from '../models/Reservation';
 describe("send mail", () => {
     test("send mail success", async ( ) => {
         (MemberRepository.checkIdExists as jest.Mock).mockReturnValue(true);
@@ -17,7 +19,7 @@ describe("send mail", () => {
             new Reservation(),
             new Reservation(),
         ]);
-        (MailService.sendMail as jest.Mock).mockReturnValue(true);
+        (MailerService.sendMail as jest.Mock).mockReturnValue(true);
 
         const response = await request(app)
             .post('/mail/member/1/reservations/missed/')
@@ -33,7 +35,7 @@ describe("send mail", () => {
             new Reservation(),
             new Reservation(),
         ]);
-        (MailService.sendMail as jest.Mock).mockReturnValue(true);
+        (MailerService.sendMail as jest.Mock).mockReturnValue(true);
 
         const response = await request(app)
             .post('/mail/member/1/reservations/missed/')
@@ -46,7 +48,7 @@ describe("send mail", () => {
     test("send mail fail, member doesn't have missed book returns", async ( ) => {
         (MemberRepository.checkIdExists as jest.Mock).mockReturnValue(false);
         (MemberRepository.getMissedReservationReturn as jest.Mock).mockReturnValue([]);
-        (MailService.sendMail as jest.Mock).mockReturnValue(true);
+        (MailerService.sendMail as jest.Mock).mockReturnValue(true);
 
         const response = await request(app)
             .post('/mail/member/1/reservations/missed/')

@@ -9,8 +9,8 @@ beforeEach(() => {
 
 jest.mock("../repositories/ReservationRepository");
 jest.mock("../repositories/StatusRepository")
-import ReservationRepository from "../repositories/ReservationRepository";
-import StatusRepository from "../repositories/StatusRepository"
+import ReservationRepository from '../repositories/ReservationRepository';
+import StatusRepository from '../repositories/StatusRepository';
 
 describe("ask reservation", () => {
 
@@ -64,7 +64,7 @@ describe("ask reservation", () => {
             .put('/reservation')
             .send(reservation);
 
-        expect(response.body).toEqual({ error : ErrorEnum.RESERVATION_NOT_FOUND });
+        expect(response.body).toEqual({ error : ErrorEnum.STATUS_NOT_FOUND });
         expect(response.status).toBe(400);
     });
 
