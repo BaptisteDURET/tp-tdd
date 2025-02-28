@@ -1,5 +1,5 @@
 import { isbnVerify } from "../services/IsbnService";
-import { IsbnExceptionsEnum } from "../Enums/isbnExceptionsEnum";
+import { IsbnExceptionsEnum } from "../Enums/IsbnExceptionsEnum";
 
 
 
